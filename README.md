@@ -1,2 +1,2 @@
 # stockPerformance
-predicting long-term stock value based on historical company finanacials.
+predicting long-term stock value based on historical company financials.
