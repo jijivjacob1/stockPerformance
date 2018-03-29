@@ -1,2 +1,3 @@
 # stockPerformance
-predicting long-term stock value based on historical company financials.
+Predict the probablity that stocks for a portfolio will outperform the median S&P 500 Companies
+
