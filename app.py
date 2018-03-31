@@ -46,7 +46,12 @@ def companiesInfo(ticker):
 def companiesData(ticker):
 
     company_data_dict = {"date": list(companies_data["calendardate"]),
-                        "price": list(companies_data["price"])
+                     "price": list(companies_data["price"]),
+                     "Debt_to_equity": list(companies_data["de"]),
+                     "Price_to_earnings": list(companies_data["pe1"]),
+                     "Price_to_sale": list(companies_data["ps1"]),
+                     "Profit_margin": list(companies_data["netmargin"]),
+                     "sp500_price": list(companies_data["SpPrice"])                                                                                     
     }
 
     return jsonify(company_data_dict)
