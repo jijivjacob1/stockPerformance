@@ -1,0 +1,1 @@
+web: gunicorn stck_anal.app:app
