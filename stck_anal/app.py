@@ -107,7 +107,7 @@ def companyFinancials(ticker):
     return jsonify(df.to_dict(orient="records"))
 
 
-@app.route('/predicStock/<ticker>')
+@app.route('/predictStock/<ticker>')
 def predicStock(ticker):
 
     company_ticker = ticker.upper()
@@ -246,8 +246,13 @@ def predicStock(ticker):
     column_not_needed = ["None","datekey","price","sp_price","price_change",'sp_price_change','diff','status']
     X_test.drop(column_not_needed,axis=1,inplace=True)
 
+    saved_rf = joblib.load('rand_frst.pkl')
+
+
     df_pred_val = df_company_fundmntls[['datekey','pe1','tangibles','sps','ps1','debtusd','evebitda',
                       'depamor','de','epsdil','price','sp_price','price_change','sp_price_change','status']]
+
+    df_pred_val["status"] = saved_rf.predict(X_test)[0]
 
     df_pred_val = df_pred_val.reset_index()
 
