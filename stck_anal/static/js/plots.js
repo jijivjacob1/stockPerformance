@@ -19,7 +19,7 @@ function handleSubmit() {
   Plotly.d3.json("/predictStock/" + stock, function(error, response) {
     if (error) return console.warn(error);
 
-    console.log(response);
+    //console.log(response);
 
   if (response.length > 0){
 
@@ -27,9 +27,9 @@ function handleSubmit() {
     sp_price_change = response.map(d=>d.sp_price_change);
     sp_dates = response.map(d=>d.datekey);
     statuses = response.map(d=>d.status);
-    console.log(price_change);
-    console.log(sp_price_change);
-    console.log(sp_dates);
+    //console.log(price_change);
+    //console.log(sp_price_change);
+    //console.log(sp_dates);
 
     var layout = {
       title: '',
@@ -110,7 +110,7 @@ function handleSubmit() {
         if (j == 9){
           $cell.innerText = stkdata["de"];
         }
-        
+
       
       }
 
