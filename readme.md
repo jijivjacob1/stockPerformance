@@ -1,7 +1,7 @@
 # The Oracles of Wall Street
 ### Stock Performance Predictions using Machine Learning
 ____________________________________________________________________________________________________________
-Emotions can drive short-term market fluctuations causing disconnect between the price and true value of a company’s shares.  Over long periods of time, a company’s fundamentals ultimately cause the value and market price of its shares to converge. This projects uses forty stock features to attempt to predict stock performance compared to the S&P 500 Index using three machine learning algorithms: 
+Emotions can drive short-term market fluctuations causing disconnect between the price and true value of a company’s shares.  Over long periods of time, a company’s fundamentals ultimately cause the value and market price of its shares to converge. This projects uses forty stock features to attempt to predict stock performance compared to the S&P 500 Index using two machine learning algorithms: 
 
     * Support Vector Machine Classifier
     * Random Forest Classifier
@@ -43,7 +43,4 @@ Random Forest Classifier  | N_estimators = 700, max_features = sqrt | 87%
 
 
 ### Team Members:
-Jiji Jacob
-Bopanna Malachira
-Adam Darnell
-Wendy Walsh
+Jiji Jacob, Bopanna Malachira, Adam Darnell, Wendy Walsh
