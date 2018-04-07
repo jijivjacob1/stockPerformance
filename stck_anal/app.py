@@ -261,6 +261,15 @@ def predicStock(ticker):
     return jsonify(df_pred_val.to_dict(orient="records"))
 
 
+@app.route("/predict")
+def predict():
+    return render_template("prediction.html")
+
+@app.route("/resources")
+def resources():
+    return render_template("resources.html")
+
+
 
 
 
