@@ -76,34 +76,38 @@ function handleSubmit() {
       var stkdata = response[i];
       var $row = $tbody.insertRow(i);
 
-      for (var j = 0; j < 9; j++) {
+      for (var j = 0; j < 10; j++) {
         var $cell = $row.insertCell(j);
-      
-        if (j == 0){
-          $cell.innerText = stkdata["pe1"];
+
+
+       if (j == 0){
+          $cell.innerText = stkdata["pb"];
         }
         if (j == 1){
-          $cell.innerText = stkdata["tangibles"];
+          $cell.innerText = stkdata["pe1"];
         }
         if (j == 2){
-          $cell.innerText = stkdata["sps"];
+          $cell.innerText = stkdata["tangibles"];
         }
         if (j == 3){
-          $cell.innerText = stkdata["ps1"];
+          $cell.innerText = stkdata["sps"];
         }
         if (j == 4){
-          $cell.innerText = stkdata["debtusd"];
+          $cell.innerText = stkdata["ps1"];
         }
         if (j == 5){
-          $cell.innerText = stkdata["evebitda"];
+          $cell.innerText = stkdata["debtusd"];
         }
         if (j == 6){
-          $cell.innerText = stkdata["depamor"];
+          $cell.innerText = stkdata["evebitda"];
         }
         if (j == 7){
-          $cell.innerText = stkdata["epsdil"];
+          $cell.innerText = stkdata["depamor"];
         }
         if (j == 8){
+          $cell.innerText = stkdata["epsdil"];
+        }
+        if (j == 9){
           $cell.innerText = stkdata["de"];
         }
       

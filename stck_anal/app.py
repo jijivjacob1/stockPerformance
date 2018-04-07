@@ -251,7 +251,7 @@ def predicStock(ticker):
   
 
 
-    df_pred_val = df_company_fundmntls[['datekey','pe1','tangibles','sps','ps1','debtusd','evebitda',
+    df_pred_val = df_company_fundmntls[['datekey','pb','pe1','tangibles','sps','ps1','debtusd','evebitda',
                       'depamor','de','epsdil','price','sp_price','price_change','sp_price_change','status']]
 
     df_pred_val["status"] = saved_rf.predict(X_test)[0]
