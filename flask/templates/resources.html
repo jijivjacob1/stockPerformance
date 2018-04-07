@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Stock Predictor</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <!-- Leaflet CSS & JS -->
+        <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <center><a class="navbar-brand" href="/">Company Financials</a></center>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                    <a class="nav-link" href="/predict" >Predict </a> 
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/resources" >Resources</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">                                                                                       -->
+                    <table class="table-responsive-sm">
+                        <thead>
+                            <tr>
+                            <th>Feature</th>
+                            <th>Definition</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>DE</td>
+                                <td>Debt to Equity Ratio </td>
+                            </tr>  
+                            <tr>
+                                <td>PE1</td>
+                                <td>Price to Earnings Ratio</td>
+                            </tr> 
+                            <tr>
+                                <td>PS1</td>
+                                <td>Price to Sales Ratio</td>
+                            </tr>  
+                            <tr>
+                                <td>PB</td>
+                                <td>Price to Book Value</td>
+                            </tr> 
+                            <tr>
+                                <td>NETMARGIN</td>
+                                <td>Profit Margin</td>
+                            </tr>  
+                            <tr>
+                                <td>MARKETCAP</td>
+                                <td>Market Capitalization</td>
+                            </tr> 
+                            <tr>
+                                <td>EV</td>
+                                <td>Enterprise Value</td>
+                            </tr>  
+                            <tr>
+                                <td>EVEBITDA</td>
+                                <td>Enterprise Value over EBITDA</td>
+                            </tr>
+                            <tr>
+                                <td>REVENUEUSD</td>
+                                <td>Revenues (USD) </td>
+                            </tr>  
+                            <tr>
+                                <td>GP</td>
+                                <td>Gross Profit</td>
+                            </tr> 
+                            <tr>
+                                <td>EBITDA</td>
+                                <td>Earnings Before Interest, Taxes and Depreciation Amortization </td>
+                            </tr>  
+                            <tr>
+                                <td>NETINCCMNUSD</td>
+                                <td>Net Income Common Stock (USD)</td>
+                            </tr>
+                            <tr>
+                                <td>EPSDIL</td>
+                                <td>Earnings per Diluted Share</td>
+                            </tr>  
+                            <tr>
+                                <td>REVENUEGROWTH1YR</td>
+                                <td>Revenue Growth</td>
+                            </tr> 
+                            <tr>
+                                <td>DEBTUSD</td>
+                                <td>Total Debt (USD)</td>
+                            </tr>  
+                            <tr>
+                                <td>CURRENTRATIO</td>
+                                <td>Current Ratio</td>
+                            </tr> 
+                            <tr>
+                                <td>BVPS</td>
+                                <td>Book Value per Share</td>
+                            </tr>  
+                            <tr>
+                                <td>NCFO</td>
+                                <td>Net Cash Flow from Operations</td>
+                            </tr> 
+                            <tr>
+                                <td>DEPAMOR</td>
+                                <td>Depreciation, Amortization and Accretion</td>
+                            </tr>  
+                            <tr>
+                                <td>SBCOMP</td>
+                                <td>PShare Based Compensation</td>
+                            </tr>
+                            <tr>
+                                <td>NCFI</td>
+                                <td>Net Cash Flow from Investing </td>
+                            </tr>  
+                            <tr>
+                                <td>CAPEX</td>
+                                <td>Capital Expenditure</td>
+                            </tr> 
+                            <tr>
+                                <td>NCFBUS</td>
+                                <td>Net Cash Flow - Business Acquisitions and Disposals</td>
+                            </tr>  
+                            <tr>
+                                <td>NCFINV</td>
+                                <td>Net Cash Flow - Investment Acquisitions and Disposals</td>
+                            </tr>    
+                            <tr>
+                                <td>NCFF</td>
+                                <td>Net Cash Flow from Financing</td>
+                            </tr>  
+                            <tr>
+                                <td>NCFCOMMON</td>
+                                <td>Issuance (Purchase) of Equity Shares</td>
+                            </tr> 
+                            <tr>
+                                <td>NCFDEBT</td>
+                                <td>Issuance (Repayment) of Debt Securities</td>
+                            </tr>  
+                            <tr>
+                                <td>NCFDIV</td>
+                                <td>Payment of Dividends and Other Cash Distributions</td>
+                            </tr>
+                            <tr>
+                                <td>NCFX</td>
+                                <td>Effect of Exchange Rate Changes on Cash </td>
+                            </tr>  
+                            <tr>
+                                <td>NCF</td>
+                                <td>Net Cash Flow / Change in Cash and Cash Equivalents</td>
+                            </tr> 
+                            <tr>
+                                <td>TANGIBLES</td>
+                                <td>Tangible Asset Value</td>
+                            </tr>  
+                            <tr>
+                                <td>TBVPS</td>
+                                <td>Tangible Asset Book Value per Share</td>
+                            </tr>
+                            <tr>
+                                <td>WORKINGCAPITAL</td>
+                                <td>TWorking Capital</td>
+                            </tr>                                                                                                                                                                                                                 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
