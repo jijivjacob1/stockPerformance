@@ -32,6 +32,8 @@ app.config['QUANDL_API_KEY'] = os.environ.get('QUANDL_API_KEY', '') or ''
 db = SQLAlchemy(app)
 from .models import Company,company_columns,CompanyFinancials,company_finan_columns
 
+saved_rf = joblib.load('rand_frst.pkl')
+
 
 @app.route("/")
 def home():
@@ -87,12 +89,8 @@ def companyFinancials(ticker):
     'ncfdiv' ,
     'ncfx' ,
     'ncf' ,
-    'roic' ,
     'sps' ,
     'payoutratio' ,
-    'roa' ,
-    'roe' ,
-    'ros' ,
     'tangibles' ,
     'tbvps' ,
     'workingcapital' ,
@@ -163,7 +161,11 @@ def predicStock(ticker):
 
         df_company_fundmntls = quandl.get_table('SHARADAR/SF1', qopts={"columns":stck_fund_attr}, ticker=[company_ticker],dimension = 'ARQ')
         
-        df_company_fundmntls.fillna(0.0)
+        df_company_fundmntls = df_company_fundmntls.fillna(0.0)
+            
+        df_company_fundmntls = df_company_fundmntls[df_company_fundmntls.price != 0.0]
+        
+        df_company_fundmntls = df_company_fundmntls.reset_index(drop=True)
     
         df_company_fundmntls = df_company_fundmntls.sort_values(by=['datekey'])
         df_company_fundmntls["sp_price"] = 0.0
@@ -242,11 +244,11 @@ def predicStock(ticker):
 
     
     X_test = df_company_fundmntls[(df_company_fundmntls.datekey == df_company_fundmntls["datekey"].max())]
-    X_test = X_test.reset_index()
-    column_not_needed = ["None","datekey","price","sp_price","price_change",'sp_price_change','diff','status']
+  
+    column_not_needed = ["datekey","price","sp_price","price_change",'sp_price_change','diff','status']
     X_test.drop(column_not_needed,axis=1,inplace=True)
 
-    saved_rf = joblib.load('rand_frst.pkl')
+  
 
 
     df_pred_val = df_company_fundmntls[['datekey','pe1','tangibles','sps','ps1','debtusd','evebitda',
@@ -254,9 +256,11 @@ def predicStock(ticker):
 
     df_pred_val["status"] = saved_rf.predict(X_test)[0]
 
+    df_pred_val['datekey'] = df_pred_val['datekey'].astype('str')
+
     df_pred_val = df_pred_val.reset_index()
 
-    df_pred_val.drop('None',axis=1,inplace=True)
+    # df_pred_val.drop('None',axis=1,inplace=True)
 
     return jsonify(df_pred_val.to_dict(orient="records"))
 

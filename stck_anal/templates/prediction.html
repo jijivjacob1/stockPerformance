@@ -2,82 +2,120 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" type="text/css" href="style2.css"/> -->
+    <!-- Leaflet CSS & JS -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/style2.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
     <title>Document</title>
-
-
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> -->
-        <div class="container">
-          <center><a class="navbar-brand" href="#">Stock Performance</a></center>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">S&P Comparison</a>
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="prediction.html" target = 'blank_'>Performance Predictions </a> 
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#comparison">Stock Comparisons</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="legend.html"  href="#">Information</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </head>
-
+</head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-          <center><a class="navbar-brand" href="/">Company Financials</a></center>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="/predict" >Predict </a> 
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/resources" >Resources</a>
-              </li>
-            </ul>
-        </div>
-      </div>
-    </nav>
+          <!-- Navigation -->
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+              <div class="container-fluid">
+                  <center><a class="navbar-brand" href="/">Company Financials</a></center>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarResponsive">
+                  <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                      <a class="nav-link" href="/predict" >Predict </a> 
+                      </li>
+                      <li class="nav-item">
+                      <a class="nav-link" href="/resources" >Resources</a>
+                      </li>
+                  </ul>
+                  </div>
+              </div>
+          </nav>
 
-    <center><ul class="nav nav-pills">
-      
-      <div class="page-header">
-          <!-- <h1 font size="7">Stock Prediction</font> -->
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-          </head>
-          <body>
-            <form class="form-inline container-fluid">
-              <div class="form-group">
-                <label for="stockInput"></label>
-                <br/>
-                <br/>
-                <input type="text" align="center" class="form-control" id="stockInput" placeholder="Enter a Stock Ticker"> 
-              <button id="submit" type="submit" class="btn btn-default">Plot Stock</button>
-            </form></center>
-            <div id="plot"></div>
-            <script src="plots.js"></script>
-    </center>                       
+      <div class="container">             
+        <center><div class="page-header">
+                <h1><font size="7">Stock Prediction</font> 
+                  
+                 <br/>
+        
+        
+                        <br/> 
+                        
+                        <div class="row">
+                        
+                               
+                            
+                                <form class="form-inline">
+                                  
+                                    
+                                    <center><input type="text" class="form-control" id="stockInput" placeholder="Enter a stock"></center>
+                                 
+                                  
+                                  
+                                  <button id="submit" type="submit" class="btn btn-default">Predict Stock</button>
+                                </form>
+                                
+                             
+                               
+                        </div>     
+                        <div class="row">
+                          <div class="col-lg-12 ">
+                            <table class="table-responsive-sm">
+                              <tr>
+                                <td>
+                                    Result:
+                                </td>
+                                <td class="displayResult">
+                                    
+                                </td>
+                              </tr>
+                            </table> 
+                          </div>
+                       
+                      
+                      
+                        
+                    </div> 
+
+                        <br/>
+                      <div class="row"> 
+                        <div class="col-md-12">
+                            <div id="plot"></div>
+                        </div>
+                      </div>
+                    
+                       
+                      <div class="row">
+                        <div class="panel panel-default col-md-12">
+                          <!-- Default panel contents -->
+                          <div class="panel-heading ">Features</div>
+                         <!-- Table -->
+                         <div  class="bodycontainer scrollable">
+                          <table class="table" >
+                            <thead>
+                              <tr>
+                                
+                                <th>PE1</th>
+                                <th>TANGIBLES</th>
+                                <th>SPS</th>
+                                <th>PS1</th>
+                                <th>DEBTUSD</th>
+                                <th>EVEBITDA</th>
+                                <th>DEPAMOR</th>
+                                <th>EPSDIL</th>
+                                <th>DE</th>
+                                
+
+                              </tr>
+                            </thead>
+                            <tbody class="features">
+                            </tbody>
+                          </table>
+                          </div>
+                        </div> 
+                      </div>
+                          
+  </div>  
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="{{ url_for('static', filename='js/plots.js') }}"></script>
 </body>
 </html>

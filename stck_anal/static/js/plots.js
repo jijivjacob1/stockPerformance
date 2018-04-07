@@ -1,38 +1,5 @@
-/**
- * Helper function to select stock data
- * Returns an array of values
- * @param {array} rows
- * @param {integer} index
- * index 0 - Date
- * index 1 - Open
- * index 2 - High
- * index 3 - Low
- * index 4 - Close
- * index 5 - Volume
- */
-function unpack(rows, index) {
-  return rows.map(function(row) {
-    return row[index];
-  });
-}
 
-// Calculate a rolling average for an array
-function rollingAverage(arr, windowPeriod = 10) {
-  // rolling averages array to return
-  var averages = [];
-
-  // Loop through all of the data
-  for (var i = 0; i < arr.length - windowPeriod; i++) {
-    // calculate the average for a window of data
-    var sum = 0;
-    for (var j = 0; j < windowPeriod; j++) {
-      sum += arr[i + j];
-    }
-    // calculate the average and push it to the averages array
-    averages.push(sum / windowPeriod);
-  }
-  return averages;
-}
+ var $outcome = document.querySelector(".displayResult");
 
 // Submit Button handler
 function handleSubmit() {
@@ -47,79 +14,114 @@ function handleSubmit() {
   Plotly.d3.select("#stockInput").node().value = "";
 
   // Build the plot with the new stock
-  buildPlot(stock);
-}
-
-function buildPlot(stock) {
-  var apiKey = "4ihzEScULpsA-w_DozkK";
-
-  var url = `https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?start_date=2016-10-01&end_date=2017-10-01&api_key=${apiKey}`;
-
-  Plotly.d3.json(url, function(error, response) {
-
+  // buildPlot(stock);
+  // console.log("hello");
+  Plotly.d3.json("/predictStock/" + stock, function(error, response) {
     if (error) return console.warn(error);
 
-    // Grab values from the response json object to build the plots
-    var name = response.dataset.name;
-    var stock = response.dataset.dataset_code;
-    var startDate = response.dataset.start_date;
-    var endDate = response.dataset.end_date;
-    var dates = unpack(response.dataset.data, 0);
-    var openingPrices = unpack(response.dataset.data, 1);
-    var highPrices = unpack(response.dataset.data, 2);
-    var lowPrices = unpack(response.dataset.data, 3);
-    var closingPrices = unpack(response.dataset.data, 4);
-    var rollingPeriod = 30;
-    var rollingAvgClosing = rollingAverage(closingPrices, rollingPeriod);
+    console.log(response);
+
+  if (response.length > 0){
+
+    price_change = response.map(d=>d.price_change);
+    sp_price_change = response.map(d=>d.sp_price_change);
+    sp_dates = response.map(d=>d.datekey);
+    statuses = response.map(d=>d.status);
+    console.log(price_change);
+    console.log(sp_price_change);
+    console.log(sp_dates);
+
+    var layout = {
+      title: '',
+      xaxis: {
+        title: 'Years'
+      },
+      yaxis: {
+        title: 'Price Change'
+      }
+    };
+    
 
     var trace1 = {
       type: "scatter",
       mode: "lines",
-      name: name,
-      x: dates,
-      y: closingPrices,
-      line: {
-        color: "#17BECF"
-      }
-    };
-
-    // Candlestick Trace
+      name: stock ,
+      x: sp_dates,
+      y: price_change,
+      line: {color: '#17BECF'}
+    }
+    
     var trace2 = {
-      type: "candlestick",
-      x: dates,
-      high: highPrices,
-      low: lowPrices,
-      open: openingPrices,
-      close: closingPrices
-    };
-
-    // Rolling Averages Trace
-    var trace3 = {
       type: "scatter",
       mode: "lines",
-      name: "Rolling",
-      x: dates.slice(rollingPeriod),
-      y: rollingAvgClosing
-    };
+      name: 'S&P',
+      x: sp_dates,
+      y: sp_price_change,
+      line: {color: '#7F7F7F'}
+    }
+    
+    var data = [trace1,trace2];
+    
+   
+    
+    Plotly.newPlot('plot', data,layout);
 
-    var data = [trace1, trace2, trace3];
+   
+    $outcome.innerHTML = statuses[0]
 
-    var layout = {
-      title: `${stock} closing prices`,
-      xaxis: {
-        range: [startDate, endDate],
-        type: "date"
-      },
-      yaxis: {
-        autorange: true,
-        type: "linear"
+    var $tbody = document.querySelector(".features");
+
+    $tbody.innerHTML = "";
+    for (var i = 0; (i < (response.length)) ; i++) {
+      var stkdata = response[i];
+      var $row = $tbody.insertRow(i);
+
+      for (var j = 0; j < 9; j++) {
+        var $cell = $row.insertCell(j);
+      
+        if (j == 0){
+          $cell.innerText = stkdata["pe1"];
+        }
+        if (j == 1){
+          $cell.innerText = stkdata["tangibles"];
+        }
+        if (j == 2){
+          $cell.innerText = stkdata["sps"];
+        }
+        if (j == 3){
+          $cell.innerText = stkdata["ps1"];
+        }
+        if (j == 4){
+          $cell.innerText = stkdata["debtusd"];
+        }
+        if (j == 5){
+          $cell.innerText = stkdata["evebitda"];
+        }
+        if (j == 6){
+          $cell.innerText = stkdata["depamor"];
+        }
+        if (j == 7){
+          $cell.innerText = stkdata["epsdil"];
+        }
+        if (j == 8){
+          $cell.innerText = stkdata["de"];
+        }
+      
       }
-    };
 
-    Plotly.newPlot("plot", data, layout);
+    }
+  }
+  else
+  {
+    $outcome.innerHTML =  "Data Unavailable"
+  }
+    
+      
 
-  });
+})
 }
+
+
 
 // Add event listener for submit button
 Plotly.d3.select("#submit").on("click", handleSubmit);

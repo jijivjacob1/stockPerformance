@@ -49,12 +49,8 @@ class CompanyFinancials(db.Model):
     ncfdiv = db.Column(db.Float)
     ncfx = db.Column(db.Float)
     ncf = db.Column(db.Float)
-    roic = db.Column(db.Float)
     sps = db.Column(db.Float)
     payoutratio = db.Column(db.Float)
-    roa = db.Column(db.Float)
-    roe = db.Column(db.Float)
-    ros = db.Column(db.Float)
     tangibles = db.Column(db.Float)
     tbvps = db.Column(db.Float)
     workingcapital = db.Column(db.Float)
@@ -107,12 +103,8 @@ company_finan_columns = [ CompanyFinancials.id_cmpny_financials ,
     CompanyFinancials.ncfdiv ,
     CompanyFinancials.ncfx ,
     CompanyFinancials.ncf ,
-    CompanyFinancials.roic ,
     CompanyFinancials.sps ,
     CompanyFinancials.payoutratio ,
-    CompanyFinancials.roa ,
-    CompanyFinancials.roe ,
-    CompanyFinancials.ros ,
     CompanyFinancials.tangibles ,
     CompanyFinancials.tbvps ,
     CompanyFinancials.workingcapital ,
