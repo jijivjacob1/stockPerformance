@@ -110,6 +110,7 @@ function handleSubmit() {
         if (j == 9){
           $cell.innerText = stkdata["de"];
         }
+        
       
       }
 
