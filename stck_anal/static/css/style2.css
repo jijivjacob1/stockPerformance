@@ -32,5 +32,10 @@ table, th, td {
   
   }
 
+  .bckblack {
+    background-color: black;
+    
+}
+
   .bodycontainer { max-height: 450px; width: 100%; margin: 0; overflow-y: auto; }
   .table-scrollable { margin: 0; padding: 0; }
